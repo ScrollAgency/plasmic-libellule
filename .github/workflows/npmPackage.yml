@@ -25,15 +25,11 @@ jobs:
       - name: Installer les dépendances sans exécuter les scripts postinstall
         run: npm install --ignore-scripts
 
-      # Étape 4 : Ajouter dynamiquement l'authentification et définir le registre
-      - name: Ajouter l'authentification et configurer le registre GitHub Packages
-        run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # Étape 5 : Publier sur GitHub Packages
       - name: Publish to GitHub Packages
-        run: npm publish --access public
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
