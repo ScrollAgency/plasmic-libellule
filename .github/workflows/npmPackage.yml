@@ -29,6 +29,8 @@ jobs:
       - name: Ajouter l'authentification et configurer le registre GitHub Packages
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # Étape 5 : Publier sur GitHub Packages
       - name: Publish to GitHub Packages
