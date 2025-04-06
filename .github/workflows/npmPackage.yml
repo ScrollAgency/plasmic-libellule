@@ -1,0 +1,36 @@
+name: Npm package
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Cloner le dépôt
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Étape 2 : Configurer Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com/
+        
+      # Étape 3 : Installer les dépendances
+      - name: Désactiver postinstall dans GitHub Actions
+        run: npm install --ignore-scripts
+
+      # Étape 4 : Construire le package
+      - name: Build package
+        run: npm run build
+
+      # Étape 5 : Publier sur GitHub Packages
+      - name: Publish package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
