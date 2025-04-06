@@ -28,10 +28,10 @@ jobs:
       # Étape 4 : Ajouter dynamiquement l'authentification et définir le registre
       - name: Ajouter l'authentification et configurer le registre GitHub Packages
         run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       # Étape 5 : Publier sur GitHub Packages
       - name: Publish to GitHub Packages
         run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
