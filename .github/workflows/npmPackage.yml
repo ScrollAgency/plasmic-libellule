@@ -1,4 +1,4 @@
-name: Publish to GitHub Packages
+name: Npm package
 
 on:
   push:
@@ -18,19 +18,21 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 22
-          registry-url: https://npm.pkg.github.com/
+          node-version: 18
+          registry-url: https://npm.pkg.github.com/  # Utilisation du registre GitHub Packages
 
-      # Étape 3 : Installer les dépendances
-      - name: Install dependencies
-        run: npm install
+      # Étape 3 : Installer les dépendances sans exécuter les scripts postinstall
+      - name: Installer les dépendances sans exécuter les scripts postinstall
+        run: npm install --ignore-scripts
 
-      # Étape 4 : Configurer l'authentification npm pour GitHub Packages
-      - name: Set up npm authentication for GitHub Packages
-        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+      # Étape 4 : Ajouter dynamiquement l'authentification et définir le registre
+      - name: Ajouter l'authentification et configurer le registre GitHub Packages
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          npm config set registry https://npm.pkg.github.com/
 
       # Étape 5 : Publier sur GitHub Packages
-      - name: Publish package to GitHub Packages
+      - name: Publish to GitHub Packages
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
