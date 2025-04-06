@@ -1,4 +1,4 @@
-name: Npm package
+name: Publish to GitHub Packages
 
 on:
   push:
@@ -20,13 +20,17 @@ jobs:
         with:
           node-version: 22
           registry-url: https://npm.pkg.github.com/
-        
-      # Étape 3 : Installer les dépendances
-      - name: Désactiver postinstall dans GitHub Actions
-        run: npm install --ignore-scripts
 
-      # Étape 4 : Publier sur GitHub Packages
-      - name: Publish package
-        run: npm publish
+      # Étape 3 : Installer les dépendances
+      - name: Install dependencies
+        run: npm install
+
+      # Étape 4 : Configurer l'authentification npm pour GitHub Packages
+      - name: Set up npm authentication for GitHub Packages
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+
+      # Étape 5 : Publier sur GitHub Packages
+      - name: Publish package to GitHub Packages
+        run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
