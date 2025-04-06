@@ -25,11 +25,7 @@ jobs:
       - name: Désactiver postinstall dans GitHub Actions
         run: npm install --ignore-scripts
 
-      # Étape 4 : Construire le package
-      - name: Build package
-        run: npm run build
-
-      # Étape 5 : Publier sur GitHub Packages
+      # Étape 4 : Publier sur GitHub Packages
       - name: Publish package
         run: npm publish
         env:
