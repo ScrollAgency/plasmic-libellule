@@ -1,6 +1,6 @@
 {
   "name": "@gael-pri/plasmic-libellule",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "L'installateur rapide pour installer la bibliothèque minimaliste de composants pour plasmic",
   "main": "index.js",
   "scripts": {
