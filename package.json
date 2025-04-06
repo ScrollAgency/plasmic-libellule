@@ -12,5 +12,8 @@
     "install.sh",
     "install.ps1",
     "install-runner.ts"
-  ]
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
 }
