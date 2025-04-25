@@ -5,6 +5,7 @@ const path = require('path');
 
 const projectRoot = process.cwd();
 const libellulePath = path.join(projectRoot, 'libellule');
+console.log('Le dossier libellule est créé ici :', libellulePath);
 
 function copyFileToLibellule(file) {
   const src = path.join(__dirname, file);
