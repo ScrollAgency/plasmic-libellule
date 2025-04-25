@@ -3,9 +3,9 @@ const { platform } = require('os');
 const fs = require('fs');
 const path = require('path');
 
+// Récupérer le répertoire racine du projet
 const projectRoot = process.cwd();
 const libellulePath = path.join(projectRoot, 'libellule');
-console.log('Le dossier libellule est créé ici :', libellulePath);
 
 function copyFileToLibellule(file) {
   const src = path.join(__dirname, file);
@@ -15,6 +15,7 @@ function copyFileToLibellule(file) {
 }
 
 try {
+  // Changer le répertoire de travail à la racine du projet
   process.chdir(projectRoot);
 
   // 📁 Créer le dossier libellule s'il n'existe pas
@@ -39,7 +40,7 @@ try {
   }
 
   // ▶️ Lancer le script depuis le nouveau dossier
-  process.chdir(libellulePath);
+  process.chdir(libellulePath);  // Se déplacer dans libellule pour exécuter le script
 
   if (platform() === 'win32') {
     console.log('🪟 Exécution de install.ps1 depuis libellule/');
