@@ -1,7 +1,13 @@
 const { execSync } = require('child_process');
 const { platform } = require('os');
 const fs = require('fs');
+const path = require('path');
 
+// 🔁 Aller à la racine du projet
+const projectRoot = path.resolve(__dirname, '../../../');
+process.chdir(projectRoot);
+
+console.log('📁 Racine du projet :', process.cwd());
 try {
   // Vérifier si dotenv est déjà installé
   const isDotenvInstalled = fs.existsSync('node_modules/dotenv');
