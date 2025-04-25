@@ -1,37 +1,6 @@
-const readline = require('readline');
-const fs = require('fs');
 const { execSync } = require('child_process');
 const { platform } = require('os');
-const path = require('path');
-
-// Création du prompt
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-// Poser la question pour le domaine API
-rl.question('🌐 Quel est le domaine de ton API (sans https://) ? ', (domaine) => {
-  const apiUrl = `https://${domaine}/api/pre-install`;
-  const envContent = `# URL de l'API pour télécharger les fichiers\nAPI_URL="${apiUrl}"\nLOCALHOST="localhost:3030"\n`;
-
-  // Chemin vers la racine du projet (en partant du répertoire courant)
-  const envPath = path.resolve(process.cwd(), '.env.install');
-
-  try {
-    fs.writeFileSync(envPath, envContent);
-    console.log(`✅ Fichier .env.install créé à la racine avec :\n${envContent}`);
-  } catch (err) {
-    console.error('❌ Impossible de créer le fichier .env.install :', err.message);
-    process.exit(1);
-  }
-
-  // Fermer l'interface readline et poursuivre avec le reste du script
-  rl.close();
-
-  // Le reste de ton script peut maintenant démarrer ici
-  continueInstall();
-});
+const fs = require('fs');
 
 try {
   // Vérifier si dotenv est déjà installé
