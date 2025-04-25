@@ -4,7 +4,7 @@
 set -e
 
 # ✅ Charger les variables d’environnement depuis .env.install
-if [ -f .env ]; then
+if [ -f .env.install ]; then
   export $(grep -v '^#' .env.install | xargs)
 else
   echo "⚠️ Fichier .env.install introuvable. Veuillez en créer un à partir de env.install.model."
