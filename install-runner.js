@@ -3,7 +3,7 @@ const { platform } = require('os');
 const fs = require('fs');
 const path = require('path');
 
-const projectRoot = path.resolve(__dirname, '../../../');
+const projectRoot = process.cwd();
 const libellulePath = path.join(projectRoot, 'libellule');
 
 function copyFileToLibellule(file) {
