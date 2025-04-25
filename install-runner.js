@@ -3,32 +3,7 @@ const { platform } = require('os');
 const fs = require('fs');
 const path = require('path');
 
-// Récupérer le répertoire racine du projet
-const projectRoot = process.cwd();
-const libellulePath = path.join(projectRoot, 'libellule');
-
-function copyFileToLibellule(file) {
-  const src = path.join(__dirname, file);
-  const dest = path.join(libellulePath, file);
-  fs.copyFileSync(src, dest);
-  console.log(`📄 Copié ${file} → libellule/`);
-}
-
 try {
-  // Changer le répertoire de travail à la racine du projet
-  process.chdir(projectRoot);
-
-  // 📁 Créer le dossier libellule s'il n'existe pas
-  if (!fs.existsSync(libellulePath)) {
-    fs.mkdirSync(libellulePath);
-    console.log('📁 Dossier libellule créé à la racine du projet.');
-  }
-
-  // 📄 Copier les fichiers du package vers libellule
-  copyFileToLibellule('install.sh');
-  copyFileToLibellule('install.ps1');
-  copyFileToLibellule('install-runner.js');
-
   // 📦 Installer les dépendances nécessaires
   if (!fs.existsSync('node_modules/dotenv')) {
     execSync('npm install dotenv', { stdio: 'inherit' });
@@ -39,16 +14,13 @@ try {
     execSync('npm i --save-dev @types/adm-zip', { stdio: 'inherit' });
   }
 
-  // ▶️ Lancer le script depuis le nouveau dossier
-  process.chdir(libellulePath);  // Se déplacer dans libellule pour exécuter le script
-
   if (platform() === 'win32') {
     console.log('🪟 Exécution de install.ps1 depuis libellule/');
-    execSync('powershell -ExecutionPolicy Bypass -File ./install.ps1', { stdio: 'inherit' });
+    execSync('powershell -ExecutionPolicy Bypass -File libellule/install.ps1', { stdio: 'inherit' });
   } else {
     console.log('🐧 Exécution de install.sh depuis libellule/');
-    execSync('chmod +x ./install.sh');
-    execSync('bash ./install.sh', { stdio: 'inherit' });
+    execSync('chmod +x libellule/install.sh');
+    execSync('bash libellule/install.sh', { stdio: 'inherit' });
   }
 
 } catch (error) {
