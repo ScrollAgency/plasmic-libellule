@@ -3,44 +3,53 @@ const { platform } = require('os');
 const fs = require('fs');
 const path = require('path');
 
-// 🔁 Aller à la racine du projet
 const projectRoot = path.resolve(__dirname, '../../../');
-process.chdir(projectRoot);
+const libellulePath = path.join(projectRoot, 'libellule');
 
-console.log('📁 Racine du projet :', process.cwd());
+function copyFileToLibellule(file) {
+  const src = path.join(__dirname, file);
+  const dest = path.join(libellulePath, file);
+  fs.copyFileSync(src, dest);
+  console.log(`📄 Copié ${file} → libellule/`);
+}
+
 try {
-  // Vérifier si dotenv est déjà installé
-  const isDotenvInstalled = fs.existsSync('node_modules/dotenv');
+  process.chdir(projectRoot);
 
-  if (!isDotenvInstalled) {
-    console.log('📦 dotenv non trouvé. Installation en cours...');
+  // 📁 Créer le dossier libellule s'il n'existe pas
+  if (!fs.existsSync(libellulePath)) {
+    fs.mkdirSync(libellulePath);
+    console.log('📁 Dossier libellule créé à la racine du projet.');
+  }
+
+  // 📄 Copier les fichiers du package vers libellule
+  copyFileToLibellule('install.sh');
+  copyFileToLibellule('install.ps1');
+  copyFileToLibellule('install-runner.js');
+
+  // 📦 Installer les dépendances nécessaires
+  if (!fs.existsSync('node_modules/dotenv')) {
     execSync('npm install dotenv', { stdio: 'inherit' });
-  } else {
-    console.log('✔️ dotenv déjà installé.');
   }
 
-  // Vérifier si adm-zip est déjà installé
-  const isAdmZipInstalled = fs.existsSync('node_modules/adm-zip');
-  if (!isAdmZipInstalled) {
-    console.log('📦 adm-zip non trouvé. Installation en cours...');
+  if (!fs.existsSync('node_modules/adm-zip')) {
     execSync('npm install adm-zip', { stdio: 'inherit' });
-    console.log('📦 Installation de @types/adm-zip en mode dev...');
     execSync('npm i --save-dev @types/adm-zip', { stdio: 'inherit' });
-  } else {
-    console.log('✔️ adm-zip déjà installé.');
   }
 
-  // Exécution du script d'installation selon la plateforme
+  // ▶️ Lancer le script depuis le nouveau dossier
+  process.chdir(libellulePath);
+
   if (platform() === 'win32') {
-    console.log('Détection de Windows : exécution de install.ps1');
+    console.log('🪟 Exécution de install.ps1 depuis libellule/');
     execSync('powershell -ExecutionPolicy Bypass -File ./install.ps1', { stdio: 'inherit' });
   } else {
-    console.log('Détection de Linux/macOS : ajout des droits d’exécution + lancement de install.sh');
+    console.log('🐧 Exécution de install.sh depuis libellule/');
     execSync('chmod +x ./install.sh');
     execSync('bash ./install.sh', { stdio: 'inherit' });
   }
 
 } catch (error) {
-  console.error('Erreur pendant le postinstall :', error.message);
+  console.error('❌ Erreur pendant le postinstall :', error.message);
   process.exit(1);
 }
