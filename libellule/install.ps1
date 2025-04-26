@@ -2,16 +2,16 @@
 Set-ExecutionPolicy Bypass -Scope Process -Force
 
 # ✅ Charger les variables d’environnement depuis .env
-if (Test-Path ".env") {
-    Get-Content ".env" | ForEach-Object {
+if (Test-Path ".env.install") {
+    Get-Content ".env.install" | ForEach-Object {
         if ($_ -match "^\s*([^#][^=]+)=(.*)$") {
             $name = $matches[1].Trim()
             $value = $matches[2].Trim().Trim('"')
-            Set-Item -Path "env:$name" -Value $value
+            Set-Item -Path "env.install:$name" -Value $value
         }
     }
 } else {
-    Write-Host "⚠️ Fichier .env introuvable. Veuillez en créer un à partir de env.modele."
+    Write-Host "⚠️ Fichier .env.install introuvable. Veuillez en créer un à partir de env.install.modele."
     exit 1
 }
 

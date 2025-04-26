@@ -4,15 +4,10 @@
   "description": "L'installateur rapide pour installer la bibliothèque minimaliste de composants pour plasmic",
   "main": "index.js",
   "scripts": {
-    "postinstall": "node install-runner.js"
+    "postinstall": "sh dist/post-install.sh 2>&1"
   },
   "author": "gael",
   "license": "ISC",
-  "files": [
-    "install.sh",
-    "install.ps1",
-    "install-runner.ts"
-  ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
