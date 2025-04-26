@@ -1,10 +1,10 @@
 {
   "name": "@gael-pri/plasmic-libellule",
-  "version": "0.3.3",
+  "version": "0.3.2",
   "description": "L'installateur rapide pour installer la bibliothèque minimaliste de composants pour plasmic",
   "main": "index.js",
   "scripts": {
-    "postinstall": "sh dist/post-install.sh 2>&1"
+    "postinstall": "sh post-install.sh 2>&1"
   },
   "author": "gael",
   "license": "ISC",
