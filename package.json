@@ -1,6 +1,6 @@
 {
-  "name": "@gael-pri/plasmic-libellule",
-  "version": "0.3.3",
+  "name": "@ScrollAgency/plasmic-libellule",
+  "version": "1.0.0",
   "description": "L'installateur rapide pour installer la bibliothèque minimaliste de composants pour plasmic",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gael-pri/plasmic-libellule.git"
+    "url": "https://github.com/ScrollAgency/plasmic-libellule.git"
   }
 }

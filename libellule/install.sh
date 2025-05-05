@@ -27,7 +27,14 @@ if [[ "$install_plasmic" =~ ^[oOyY]$ ]]; then
   echo "📦 Création du projet $monapp avec create-plasmic-app..."
   npx create-plasmic-app "$monapp"
 
-  cd "$monapp"
+  echo "📂 Copie du contenu de $monapp dans le projet actuel..."
+  # Copier tout (y compris les fichiers cachés)
+  shopt -s dotglob
+  cp -r "$monapp"/* "$monapp"/.[!.]* .
+
+  echo "🧹 Suppression du dossier temporaire $monapp..."
+  rm -rf "$monapp"
+
 else
   echo "⏭️ Installation de Plasmic ignorée."
 fi
@@ -66,7 +73,14 @@ if [[ -f "first-install.ts" && -f "first-install.tsx" ]]; then
   read -p "Appuie sur Enter pour ouvrir le navigateur..."
 
   echo "🌐 Ouverture du navigateur sur $URL..."
-  xdg-open "$URL" 2>/dev/null || sensible-browser "$URL" 2>/dev/null || gnome-open "$URL" 2>/dev/null || x-www-browser "$URL" 2>/dev/null
+
+  if grep -qi microsoft /proc/version; then
+    # On est dans WSL
+    powershell.exe start "$URL"
+  else
+    # Linux classique
+    xdg-open "$URL" 2>/dev/null || sensible-browser "$URL" 2>/dev/null || gnome-open "$URL" 2>/dev/null || x-www-browser "$URL" 2>/dev/null
+  fi
 
   echo "✅ Installation terminée avec succès !"
 else
