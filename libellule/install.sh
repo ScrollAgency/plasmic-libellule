@@ -69,6 +69,15 @@ if [[ -f "first-install.ts" && -f "first-install.tsx" ]]; then
     4. Exécute, dans un autre terminal, 'npm run dev'.
   Appuie sur Enter lorsque tu es prêt à continuer... "
 
+  # 📦 Installer adm-zip et ses types
+  if ! npm list adm-zip >/dev/null 2>&1; then
+    echo "📦 Installation de adm-zip..."
+    npm install adm-zip
+    npm install --save-dev @types/adm-zip
+  else
+    echo "✅ adm-zip déjà installé"
+  fi
+
   # Attendre la pression sur Entrée pour poursuivre
   read -p "Appuie sur Enter pour ouvrir le navigateur..."
 

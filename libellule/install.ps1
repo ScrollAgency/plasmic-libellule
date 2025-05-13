@@ -72,6 +72,16 @@ if (Test-Path "first-install.ts" -and Test-Path "first-install.tsx") {
     4. Exécute, dans un autre terminal, 'npm run dev'.
     Appuie sur Enter lorsque tu es prêt à continuer..."
 
+    # 📦 Installer adm-zip et ses types si nécessaire
+    try {
+        npm list adm-zip | Out-Null
+        Write-Host "✅ adm-zip déjà installé"
+    } catch {
+        Write-Host "📦 Installation de adm-zip..."
+        npm install adm-zip
+        npm install --save-dev @types/adm-zip
+    }
+
     # Ouvrir le navigateur
     $url = "http://$env:LOCALHOST/first-install"
     Write-Host "🌐 Ouverture du navigateur sur $url..."
