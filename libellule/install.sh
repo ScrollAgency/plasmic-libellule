@@ -45,16 +45,23 @@ rm -f tsconfig.json next.config.mjs
 # 📥 Téléchargement des fichiers depuis l'API
 echo "⬇️ Téléchargement des fichiers depuis $API_URL..."
 curl -L -o first-install.ts "$API_URL?file=pages/api/first-install.ts"
+curl -L -o first-install.module.css "$API_URL?file=pages/api/first-install.module.css"
+curl -L -o install-log.ts "$API_URL?file=pages/api/install-log.ts"
 curl -L -o first-install.tsx "$API_URL?file=pages/first-install.tsx"
 curl -L -o tsconfig.json "$API_URL?file=tsconfig.json"
 curl -L -o next.config.mjs "$API_URL?file=next.config.mjs"
 curl -L -o env.modele "$API_URL?file=env.modele"
+curl -L -o logger.ts "$API_URL?file=lib/logger.ts"
 
 # ✅ Vérification & déplacement des fichiers
 if [[ -f "first-install.ts" && -f "first-install.tsx" ]]; then
   mkdir -p ./pages/api
+  mkdir -p ./lib
   mv first-install.ts ./pages/api/first-install.ts
+  mv first-install.module.css ./pages/api/first-install.module.css
+  mv install-log.ts ./pages/api/install-log.ts
   mv first-install.tsx ./pages/first-install.tsx
+  mv logger.ts ./pages/api/logger.ts
   mv env.modele ./.env
 
   URL="http://$LOCALHOST/first-install"
