@@ -45,9 +45,9 @@ rm -f tsconfig.json next.config.mjs
 # 📥 Téléchargement des fichiers depuis l'API
 echo "⬇️ Téléchargement des fichiers depuis $API_URL..."
 curl -L -o first-install.ts "$API_URL?file=pages/api/first-install.ts"
-curl -L -o first-install.module.css "$API_URL?file=pages/api/first-install.module.css"
 curl -L -o install-log.ts "$API_URL?file=pages/api/install-log.ts"
 curl -L -o first-install.tsx "$API_URL?file=pages/first-install.tsx"
+curl -L -o first-install.module.css "$API_URL?file=pages/first-install.module.css"
 curl -L -o tsconfig.json "$API_URL?file=tsconfig.json"
 curl -L -o next.config.mjs "$API_URL?file=next.config.mjs"
 curl -L -o env.modele "$API_URL?file=env.modele"
@@ -58,9 +58,9 @@ if [[ -f "first-install.ts" && -f "first-install.tsx" ]]; then
   mkdir -p ./pages/api
   mkdir -p ./lib
   mv first-install.ts ./pages/api/first-install.ts
-  mv first-install.module.css ./pages/api/first-install.module.css
   mv install-log.ts ./pages/api/install-log.ts
   mv first-install.tsx ./pages/first-install.tsx
+  mv first-install.module.css ./pages/first-install.module.css
   mv logger.ts ./pages/api/logger.ts
   mv env.modele ./.env
 
@@ -70,10 +70,9 @@ if [[ -f "first-install.ts" && -f "first-install.tsx" ]]; then
   read -p "
   🌟 Ton navigateur va s'ouvrir pour continuer l'installation de la bibliothèque Plasmic Libellule.
   Avant de poursuivre, voici quelques points à vérifier :
-    1. Définit le port utilisé dans ton .env.
-    2. Change le script dans package.json pour : npm run dev -p <leport>.
-    3. Modifie plasmic-init.ts pour passer le paramètre preview à true.
-    4. Exécute, dans un autre terminal, 'npm run dev'.
+    1. Change le script dans package.json pour : npm run dev -p <leport>.
+    2. Modifie plasmic-init.ts pour passer le paramètre preview à true.
+    3. Exécute, dans un autre terminal, 'npm run dev'.
   Appuie sur Enter lorsque tu es prêt à continuer... "
 
   # 📦 Installer adm-zip et ses types
