@@ -1,6 +1,6 @@
 {
   "name": "@ScrollAgency/plasmic-libellule",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "L'installateur rapide pour installer la bibliothèque minimaliste de composants pour plasmic",
   "main": "index.js",
   "scripts": {
